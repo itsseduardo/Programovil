@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, StyleSheet, Alert } from 'react-native';
 import Greeting from './components/Greeting';
 import UserDetails from './components/UserDetails';
 import ToggleText from './components/ToggleText';
@@ -7,12 +7,11 @@ import DynamicForm from './components/DynamicForm';
 import ClickCounter from './components/ClickCounter';
 import RegistrationForm from './components/RegistrationForm';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import AlertButton from './components/AlertButton';  
+import AlertButton from './components/AlertButton';
 import ParentCounter from './components/ParentCounter';
 import ImageGallery from './components/ImageGallery';
 import Game from './components/Game';
-import Tarea from './components/Tarea';
-
+import Tarea from './components/Tarea';  
 
 export default function App() {
   const [userData, setUserData] = useState(null);
@@ -27,7 +26,7 @@ export default function App() {
   };
 
   const showAlert = () => {
-    Alert.alert("Alerta", "Esta es mi primera app, lol!");
+    Alert.alert("Alerta", "Este es un mensaje personalizado!");
   };
 
   const themeStyles = theme === 'dark' ? darkStyles : lightStyles;
@@ -35,44 +34,49 @@ export default function App() {
   const exampleTarea = {
     title: 'Completar tarea de React Native',
     completed: false,
-    };
+  };
 
   return (
-    <View style={[styles.container, themeStyles.container]}>
-      <Greeting name="Jesus" />
-      <UserDetails nombre="Jesus" edad={25} ocupacion="Software Engineer" />
-      <ToggleText />
-      <DynamicForm />
-      <ClickCounter />
-      
-      
-      <RegistrationForm onRegister={handleRegister} />
-      <ThemeSwitcher onToggleTheme={handleToggleTheme} />
-      <AlertButton showAlert={showAlert} /> 
-      <ParentCounter /> 
-      <ImageGallery />
-      <Game />
-      <Tarea tarea={exampleTarea} />
-      
-  
-      {userData && (
-        <View style={styles.userDataContainer}>
-          <Text style={themeStyles.text}>Nombre: {userData.name}</Text>
-          <Text style={themeStyles.text}>Correo Electrónico: {userData.email}</Text>
-          <Text style={themeStyles.text}>Contraseña: {userData.password}</Text>
-        </View>
-      )}
-      
-      <Text style={themeStyles.text}>Tema actual: {theme}</Text>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={[styles.container, themeStyles.container]}>
+        <Greeting name="Jesus" />
+        <UserDetails nombre="Jesus" edad={25} ocupacion="Software Engineer" />
+        <ToggleText />
+        <DynamicForm />
+        <ClickCounter />
+        
+        <RegistrationForm onRegister={handleRegister} />
+        <ThemeSwitcher onToggleTheme={handleToggleTheme} />
+        <AlertButton showAlert={showAlert} />
+        <ParentCounter />
+        <ImageGallery />
+        <Game />
+        <Tarea tarea={exampleTarea} /> 
+        
+        {userData && (
+          <View style={styles.userDataContainer}>
+            <Text style={themeStyles.text}>Nombre: {userData.name}</Text>
+            <Text style={themeStyles.text}>Correo Electrónico: {userData.email}</Text>
+            <Text style={themeStyles.text}>Contraseña: {userData.password}</Text>
+          </View>
+        )}
+        
+        <Text style={themeStyles.text}>Tema actual: {theme}</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
+    backgroundColor: '#fff',  
+  },
+  container: {
+    flexGrow: 1,  
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 20,
   },
   userDataContainer: {
     marginTop: 20,
